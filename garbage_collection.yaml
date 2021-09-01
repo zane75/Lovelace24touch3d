@@ -1,0 +1,39 @@
+
+  sensors:
+  - name: raccolta_secco
+    frequency: "every-n-weeks"
+    collection_days: "fri"
+    period: 2
+    first_week: 2
+    move_country_holidays: IT    
+    
+  - name: raccolta_organico
+    frequency: "weekly"
+    collection_days:
+    - mon
+    - thu
+    move_country_holidays: IT
+    
+  - name: raccolta_carta
+    frequency: "every-n-weeks"
+    collection_days: "wed"
+    period: 2
+    first_week: 2
+    move_country_holidays: IT 
+    
+  - name: raccolta_plastica
+    frequency: "every-n-weeks"
+    collection_days: "wed"
+    period: 2
+    first_week: 1
+    move_country_holidays: IT 
+    
+    move_country_holidays: IT
+  - name: raccolta_vetro
+    frequency: "every-n-weeks"
+    collection_days: "tue"
+    period: 4
+    first_week: 3
+    move_country_holidays: IT 
+       
+          
