@@ -391,10 +391,5 @@ sensor:
        
 
     
-rest_command:
-  botticino_push:
-    url: https://bitconsulting.it/botticinoApi/Api/service/SendPushNotification
-    method: POST
-    content_type:  'application/json; charset=utf-8'
-    payload: '{"Title":"{{ title }}","Mex":"{{ mex }}","UserId":"F27DD653-1EE2-4633-8951-45ECBF6E15D9"}'  
+
 
