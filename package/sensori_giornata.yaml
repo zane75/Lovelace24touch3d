@@ -1,0 +1,158 @@
+sensor:
+
+#------------------------------------------------------------------------------
+# SENSORE LUMINOSITA IN BASE ALLE CONDIONI METEO necessita integrazione - openweathermap -
+#------------------------------------------------------------------------------
+
+  - platform: template 
+    sensors: 
+      cloud_perc:
+        icon_template: mdi:weather-cloudy
+        value_template: >-          
+          {%- set opacity = states('sensor.openweathermap_cloud_coverage') | float %}
+          {%- if   opacity >=  50 and opacity < 100   -%}50
+          {%- elif opacity >=  45 and opacity < 50    -%}45
+          {%- elif opacity >=  40 and opacity < 45    -%}40
+          {%- elif opacity >=  35 and opacity < 40    -%}35
+          {%- elif opacity >=  30 and opacity < 35    -%}30
+          {%- elif opacity >=  25 and opacity < 30    -%}25
+          {%- elif opacity >=  20 and opacity < 25    -%}20
+          {%- elif opacity >=  15 and opacity < 20    -%}15
+          {%- elif opacity >=  10 and opacity < 15    -%}10
+          {%- elif opacity >=  5  and opacity < 10    -%}5
+          {%- elif opacity >=  0  and opacity < 5     -%}0
+          {%- else                                    -%}0 
+          {%- endif -%}
+        unit_of_measurement: '%'
+
+      cloud_opacity:
+        icon_template: mdi:weather-cloudy
+        value_template: >-
+          {%- set sunpct = states('sensor.cloud_perc') | float %}
+          {%- set opacity = (100 - sunpct) / 100 | float %}
+          {{ opacity }}
+          
+
+#------------------------------------------------------------------------------
+# SENSORE MAX ELEVAZIONE SOLARE IERI_OGGI
+#------------------------------------------------------------------------------
+
+  # crea un sensore che registra la media_mediana_min_max ecc
+  # del sensre template precedentemente creato, relativo all'altezza del sole
+  # Il valore massimo del sensore è presente come attributo
+
+    # registriamo 25 h perchè così siamo sicuri di beccare il punto 
+    # di elevazione massimo de sole
+
+    # il sampling size serve solo per consentire di tenere i 375 punti 
+    # che vengono regstrati in 25 h
+
+  - platform: statistics
+    entity_id: sensor.elevazione
+    max_age:
+      hours: 25
+    sampling_size: 400
+    
+    
+#------------------------------------------------------------------------------
+# SENSORE ELEVAZIONE SOLARE
+#------------------------------------------------------------------------------
+  # creazione di un sensore template per generare 
+  # l'entità con l'elevazione solare
+  # in modo da darla in pasto al sensore statistics creato in seguito
+
+  - platform: template 
+    sensors: 
+      elevazione:
+        friendly_name: "elevazione"
+        unit_of_measurement: '°'
+        value_template: >-
+          {{states.sun.sun.attributes.elevation|float}}
+
+#------------------------------------------------------------------------------
+# SENSORE ELEVAZIONE SOLARE
+#------------------------------------------------------------------------------
+
+  # creazione del sensore template che: 
+    # all'alba vale 0
+    # dall'alba al tramonto si porta da 0 a 100
+    # al tramonto vale 100
+    # dal tramonto all'alba vale 0
+      perc_alba_tramonto:
+        friendly_name: "% alba tramonto"
+        unit_of_measurement: '%'
+        value_template: >-
+            {% set elev = states.sun.sun.attributes.elevation%}
+            {% if elev+8 < 0 %}
+              {{0}}
+            {% else %}
+              {% set appoggio = (elev+8)/(states.sensor.stats.attributes.max_value+8) %}
+                {% if states.sun.sun.attributes.rising == true %}
+                  {{appoggio*50}}
+                {% else %}
+                  {{50 + ((1-appoggio)*50)}}
+            {% endif %}
+            {% endif %}
+            
+#------------------------------------------------------------------------------
+# SENSORE CHE DIVIDE ORE SOLARI IN 54 FOTO + FOTO NOTTE
+#------------------------------------------------------------------------------            
+      my_day_2:
+        icon_template: mdi:weather-sunny
+        value_template: >-
+          {% set elevation = (states("sensor.perc_alba_tramonto")) %}
+          {% if elevation | float <= 0 %} Notte
+          {% elif 0 < (elevation|float) <= 1 %} 1  
+          {% elif 1 < (elevation|float) <= 2 %} 2
+          {% elif 2 < (elevation|float) <= 4 %} 3
+          {% elif 4 < (elevation|float) <= 6 %} 4
+          {% elif 6 < (elevation|float) <= 8 %} 5
+          {% elif 8 < (elevation|float) <= 10 %} 6
+          {% elif 10 < (elevation|float) <= 12 %} 7
+          {% elif 12 < (elevation|float) <= 14 %} 8
+          {% elif 14 < (elevation|float) <= 16 %} 9
+          {% elif 16 < (elevation|float) <= 18 %} 10
+          {% elif 18 < (elevation|float) <= 20 %} 11
+          {% elif 20 < (elevation|float) <= 22 %} 12
+          {% elif 22 < (elevation|float) <= 24 %} 13
+          {% elif 24 < (elevation|float) <= 26 %} 14
+          {% elif 26 < (elevation|float) <= 28 %} 15
+          {% elif 28 < (elevation|float) <= 30 %} 16
+          {% elif 30 < (elevation|float) <= 32 %} 17
+          {% elif 32 < (elevation|float) <= 34 %} 18
+          {% elif 34 < (elevation|float) <= 36 %} 19
+          {% elif 36 < (elevation|float) <= 38 %} 20
+          {% elif 38 < (elevation|float) <= 40 %} 21
+          {% elif 40 < (elevation|float) <= 42 %} 22
+          {% elif 42 < (elevation|float) <= 44 %} 23
+          {% elif 44 < (elevation|float) <= 46 %} 24
+          {% elif 46 < (elevation|float) <= 48 %} 25
+          {% elif 48 < (elevation|float) <= 50 %} 26
+          {% elif 50 < (elevation|float) <= 52 %} 27
+          {% elif 52 < (elevation|float) <= 54 %} 28
+          {% elif 54 < (elevation|float) <= 56 %} 29
+          {% elif 56 < (elevation|float) <= 58 %} 30
+          {% elif 58 < (elevation|float) <= 60 %} 31
+          {% elif 60 < (elevation|float) <= 62 %} 33
+          {% elif 62 < (elevation|float) <= 64 %} 34
+          {% elif 64 < (elevation|float) <= 66 %} 35
+          {% elif 66 < (elevation|float) <= 68 %} 36
+          {% elif 68 < (elevation|float) <= 70 %} 37
+          {% elif 70 < (elevation|float) <= 72 %} 38
+          {% elif 72 < (elevation|float) <= 74 %} 39
+          {% elif 74 < (elevation|float) <= 76 %} 40
+          {% elif 76 < (elevation|float) <= 78 %} 41
+          {% elif 78 < (elevation|float) <= 80 %} 42
+          {% elif 80 < (elevation|float) <= 82 %} 43
+          {% elif 82 < (elevation|float) <= 84 %} 44
+          {% elif 84 < (elevation|float) <= 86 %} 45
+          {% elif 86 < (elevation|float) <= 88 %} 46
+          {% elif 88 < (elevation|float) <= 90 %} 47
+          {% elif 90 < (elevation|float) <= 92 %} 48
+          {% elif 92 < (elevation|float) <= 94 %} 49
+          {% elif 94 < (elevation|float) <= 96 %} 50
+          {% elif 96 < (elevation|float) <= 97 %} 51
+          {% elif 97 < (elevation|float) <= 98 %} 52
+          {% elif 98 < (elevation|float) <= 99 %} 53
+          {% elif 99 < (elevation|float) <= 100 %} 54
+          {%- endif %}

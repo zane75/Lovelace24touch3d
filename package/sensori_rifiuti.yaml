@@ -1,0 +1,31 @@
+sensor:
+
+#######rifiuti#####################
+  - platform: template 
+    sensors: 
+      carta:
+        friendly_name: "carta"
+        value_template: >-
+          {{states.sensor.raccolta_carta.attributes.days|float}}     
+          
+      organico:
+        friendly_name: "organico"
+        value_template: >-
+          {{states.sensor.raccolta_organico.attributes.days|float}}
+          
+      plastica:
+        friendly_name: "plastica"
+        value_template: >-
+          {{states.sensor.raccolta_plastica.attributes.days|float}}  
+          
+      vetro:
+        friendly_name: "vetro"
+        value_template: >-
+          {{states.sensor.raccolta_vetro.attributes.days|float}}  
+          
+      secco:
+        friendly_name: "secco"
+        value_template: >-
+          {{states.sensor.raccolta_secco.attributes.days|float}}    
+          
+                    
