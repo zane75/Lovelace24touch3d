@@ -1,0 +1,400 @@
+
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+garbage_collection: !include garbage_collection.yaml
+
+
+
+sun:
+  latitude: !secret latitude
+  longitude: !secret longitude
+  
+
+device_tracker:
+  - platform: sky_hub
+
+mqtt:
+webhook:
+ 
+zigbee2mqtt_networkmap:
+   #topic: your topic (optional, default zigbee2mqtt)
+   
+
+panel_iframe:
+  networkmap:
+    title: 'Zigbee Map'
+    url: '/local/community/zigbee2mqtt_networkmap/map.html'
+    icon: 'mdi:graphql'
+    
+homekit:
+  - filter:
+      include_domains:
+        - media_player 
+        - climate
+        - cover
+      include_entities:
+        - light.led_greta 
+        - light.caminetto        
+netatmo:
+  client_id: !secret netatmo_client_id
+  client_secret: !secret netatmo_client_secret       
+  
+zeroconf:
+
+frontend:
+  themes: !include_dir_merge_named themes/
+
+homeassistant:
+  packages: !include_dir_named packages
+hacs:
+  token: !secret hacs_token
+  
+hue:
+  bridges:
+    - host: 192.168.0.244
+      allow_unreachable: true
+
+      
+lovelace:
+  mode: storage
+  dashboards:
+    lovelace-touch:
+      mode: yaml
+      title: Tuoch
+      icon: mdi:tablet
+      show_in_sidebar: true
+      filename: lovelace/lovelace-touch.yaml    
+
+
+      
+  resources:
+  - type: module
+    url: /hacsfiles/config-template-card/config-template-card.js
+  - type: module
+    url: /local/custom-lovelace/light-slider-card-lajv.js
+  - type: js
+    url: /community_plugin/mini-media-player/mini-media-player-bundle.js
+  - type: module
+    url: /hacsfiles/decluttering-card/decluttering-card.js
+  - type: module  
+    url: /community_plugin/lovelace-layout-card/layout-card.js    
+  - type: module
+    url: /local/js/button-entity-row.js
+  - type: module
+    url: /local/js/now-playing-card.js
+ 
+
+    #######################
+    ##### HACS CUSTOM #####
+    #######################
+  
+  - url: /hacsfiles/light-popup-card/light-popup-card.js
+    type: module
+  - url: /hacsfiles/Homekit-panel-card/homekit-panel-card.js
+    type: module   
+    
+    ########################
+    ##### HACS DEFAULT #####
+    ########################
+  - url: /hacsfiles/garbage-collection-card/garbage-collection-card.js  
+    type: js 
+  - url: /hacsfiles/lovelace-card-mod/card-mod.js
+    type: module
+  - url: /hacsfiles/popup-backdrop-filter/popup-backdrop-filter.js
+    type: module    
+  - url: /hacsfiles/text-element/text-element.js
+    type: module      
+  - url: /hacsfiles/bar-card/bar-card.js
+    type: module
+  - url: /hacsfiles/circle-sensor-card/circle-sensor-card.js
+    type: module    
+  - url: /hacsfiles/lovelace-layout-card/layout-card.js
+    type: module    
+  - url: /hacsfiles/mini-graph-card/mini-graph-card-bundle.js
+    type: module    
+  - url: /hacsfiles/mini-media-player/mini-media-player-bundle.js
+    type: module    
+  - url: /hacsfiles/vertical-stack-in-card/vertical-stack-in-card.js
+    type: module   
+  - url: /hacsfiles/upcoming-media-card/upcoming-media-card.js
+    type: module    
+  - url: /hacsfiles/simple-weather-card/simple-weather-card-bundle.js
+    type: module    
+  - url: /hacsfiles/weather-card/weather-card.js
+    type: module    
+  - url: /hacsfiles/button-card/button-card.js
+    type: module   
+  - url: /hacsfiles/spotify-card/spotify-card.js
+    type: module
+  - url: /hacsfiles/light-entity-card/light-entity-card.js   
+    type: module
+  - url: /hacsfiles/power-distribution-card/power-distribution-card.js
+    type: module
+  - url: /hacsfiles/sidebar-card/sidebar-card.js
+    type: module
+  - url: /hacsfiles/tesla-style-solar-power-card/tesla-style-solar-power-card.js
+    type: module
+  - url: /hacsfiles/hass-shutter-card/hass-shutter-card.js
+    type: module    
+  - url: /hacsfiles/apexcharts-card/apexcharts-card.js
+    type: module   
+  - url: /hacsfiles/lovelace-thermostat-card/main.js
+    type: module
+  - url: local/path/to/file/lovelace-card-templater.js?v=0.0.2
+    type: js
+    
+home_plus_control:
+  client_id: !secret home_plus_control_client_id
+  client_secret: !secret home_plus_control_client_secret
+  subscription_key: !secret home_plus_control_subscription_key   
+    
+webostv:
+  host: 192.168.0.23
+  name: Living Room TV
+  turn_on_action:
+    service: persistent_notification.create
+    data:
+      message: "Turn on action"
+  customize:
+    sources:
+      - livetv
+      - youtube
+      - netflix
+
+notify:
+      
+browser_mod:
+  device:
+    d22dca27_a50b36cf:
+      name: touch
+    93050ece-af110219:
+      name: aspire    
+  disable:
+    - all        
+      
+light:
+  - platform: myhome
+    devices:
+      cameretta_greta:
+        where: '06'
+        name: Cameretta greta
+        dimmable: False
+        manufacturer: BTicino
+        model: F411U2
+      cucina:
+        where: '02'
+        name: lampadario cucina
+        dimmable: False
+        manufacturer: BTicino
+        model: F411U2
+      salone:
+        where: '05'
+        name: Salone
+        dimmable: True
+        manufacturer: BTicino
+        model: F418
+      cameretta_bianca:
+        where: '0010'
+        name: Cameretta bianca
+        dimmable: False
+        manufacturer: BTicino
+        model: F411U2
+      bagno:
+        where: '09'
+        name: faretti bagno
+        dimmable: False
+        manufacturer: BTicino
+        model: F411U2
+      corridoio:
+        where: '04'
+        name: faretti corridoio
+        dimmable: true
+        manufacturer: BTicino
+        model: F411U2          
+        
+#################################################################
+## Light Groups
+#################################################################        
+  - platform: group
+    name: faretti piano cotura
+    entities:
+      - light.faretto_cucina_1
+      - light.faretto_cucina_2
+      - light.faretto_cucina_3     
+      
+  - platform: group   
+    name: faretti bagno
+    entities:
+      - light.hue_faretto_bagno_1
+      - light.hue_faretto_bagno_2
+      - light.hue_faretto_bagno_3    
+      - light.hue_bagno_vasca
+  
+  - platform: group   
+    name: faretti salotto
+    entities:
+      - light.hue_faretto_salotto_1
+      - light.hue_faretto_salotto_2
+      - light.hue_faretto_salotto_3  
+      - light.hue_faretto_salotto_4
+      - light.hue_faretto_salotto_5
+      - light.hue_faretto_salotto_6
+      - light.hue_faretto_salotto_7
+      - light.hie_faretto_salotto_8
+      
+cover:
+  - platform: myhome
+    devices:
+      living_shutter:
+        where: '03'
+        name: tapparella salone
+        advanced: True
+        manufacturer: BTicino
+        model: F401  
+        
+
+climate:
+  - platform: myhome
+    devices:
+      salotto:
+        zone: '1'
+        name: Termostato soggiorno
+        heat: True
+        cool: True
+        standalone: True
+        manufacturer: BTicino
+        model: km4691
+       
+
+switch:
+  - platform: myhome
+    devices:
+      bed_heater:
+        where: '07'
+        name: aspiratore cucina
+        class: switch
+        manufacturer: BTicino
+        model: F411U2
+        
+        
+  - platform: myhome
+    devices:
+      bed_heater:
+        where: '12'
+        name: corridoio
+        class: switch
+        manufacturer: BTicino
+        model: F411U2
+        
+        
+  - platform: myhome
+    devices:
+      bed_heater:
+        where: '13'
+        name: camera
+        class: switch
+        manufacturer: BTicino
+        model: F411U2
+                        
+        
+sensor:
+
+  - platform: myhome
+    devices:
+      general_power:
+        where: '51'
+        name: Total power
+        class: power
+        manufacturer: BTicino
+        model: F521
+        
+  - platform: myhome
+    devices:               
+      att_power:
+        where: '71'
+        name: pdc power
+        class: power
+        manufacturer: BTicino
+        model: F522  
+        
+        
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+      - 'date_time'
+      - 'date_time_utc'
+      - 'date_time_iso'
+      - 'time_date'
+      - 'time_utc'
+      - 'beat'
+  - platform: buienradar
+    name: 'meteo'
+    timeframe: 60
+    monitored_conditions:
+      - stationname
+      - barometerfc
+      - barometerfcname
+      - conditioncode
+      - condition
+      - conditiondetailed
+      - conditionexact
+      - conditionexact_1d
+      - symbol
+      - feeltemperature
+      - temperature
+      - groundtemperature
+      - windspeed
+      - windforce
+      - windgust
+      - rain_1d
+      - windspeed_1d
+      - rainchance_1d
+      - precipitation
+      - irradiance
+      - precipitation_forecast_average
+      - precipitation_forecast_total
+      - rainlast24hour
+      - rainlasthour        
+      
+  - platform: qnap
+    host: 192.168.0.17
+    username: !secret qnap_username
+    password: !secret qnap_password
+    monitored_conditions:
+      - status
+      - cpu_usage
+      - memory_percent_used
+      - network_tx
+      - volume_percentage_used 
+      - drive_temp
+      
+
+
+  - platform: template
+    sensors:
+      luci_accese:
+        friendly_name: 'Luci Accese'
+        icon_template: 'mdi:lightbulb-group-outline'
+        value_template: "{{ states.light | selectattr('state', 'eq', 'on') | list | count }}"
+       
+       
+
+    
+rest_command:
+  botticino_push:
+    url: https://bitconsulting.it/botticinoApi/Api/service/SendPushNotification
+    method: POST
+    content_type:  'application/json; charset=utf-8'
+    payload: '{"Title":"{{ title }}","Mex":"{{ mex }}","UserId":"F27DD653-1EE2-4633-8951-45ECBF6E15D9"}'  
+
