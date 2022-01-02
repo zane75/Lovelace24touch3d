@@ -21,15 +21,15 @@ views:
     icon: 'mdi:floor-plan'
     type: custom:grid-layout
     layout:
-      grid-template-columns: 140px 127px 127px 127px 127px 127px 127px 127px 
-      grid-template-rows: 160px 295px 125px 130px 1060px 10px 36px
+      grid-template-columns: 120px 120px 120px 120px 84px 156px 120px 120px 
+      grid-template-rows: 134px 265px 110px 110px 75px 1000px 34px
       grid-template-areas: |
-        "header2 header2 header1 header1 header1 header1 header4 header4"
-        "meteo meteo meteo meteo gr gr gr gr"
-        "play play s s cam cam cam cam"
-        "play play s s cam cam cam cam"
-        "footer footer footer footer footer footer footer footer"
-        "v v v v v v v v"        
+        "header2 header2 header3 header3 header1 header1 header4 header4"
+        "a a a a a meteo meteo meteo"
+        "2 2 2 2 2 gr gr gr"
+        "2 2 2 2 2 gr gr gr"
+        "gr2 gr2 gr2 gr2 gr2 gr2 gr2 gr2"
+        "footer footer footer footer footer footer footer footer"     
         "menu menu menu menu menu menu menu menu"
     cards:
       - type: 'custom:button-card'
@@ -41,7 +41,7 @@ views:
         show_state: true
         styles:
           card:
-            - height: 148px
+            - height: 125px
           state:
             - font-size: 400%
             - font-weight: bold
@@ -54,88 +54,70 @@ views:
             - justify-self: center
             - font-size: 120%
         tap_action:
-          action: none
-
-        
-        
+          action: none        
         view_layout:          
            grid-area: header2          
+
+      - type: energy-grid-neutrality-gauge
+        view_layout:       
+           grid-area: header3    
+
+
            
       - type: gauge
-        entity: sensor.pdc_power_2
+        entity: sensor.consumo_power
         min: 0
-        max: 3000
         severity:
-          blue: 1
+          green: 0
           yellow: 0
-          red: 0
+          red: 1
+        max: 6000
+        name: CONSUMO            
         view_layout:          
            grid-area: header4
            
-           
-      - type: 'custom:bar-card'
-        entities:
-          - entity: sensor.solaredge_solar_power
-            icon:
-            direction: right
-            color: green
-            height: 55px
-            max: '5'
-            width: 160px
-            name: Prodotta
-          - entity: sensor.total_power
-            icon: 'mdi:transmission-tower'
-            color: red
-            height: 55px
-            direction: right
-            width: 50px
-            max: '3000'
-            name: consumo
-            positions:
-              minmax: 'off'
-              value: inside
-              indicator: outside
-            animation:
-              state: 'off'
-            target: '0'
-        columns: '1'
-        animation:
-          state: 'off'
+      - type: gauge
+        entity: sensor.solaredge_current_power
+        max: 5998
+        min: 0
         severity:
-          - {}
-        positions:
-          indicator: outside
-          icon: outside
-          name: inside
-        direction: right
-        height: 100px
-        width: 100px
-        color: blue
-        title: 
+          green: 0
+          yellow: 1
+          red: -1
+        name: FOTOVOLTAICO      
         view_layout:
            grid-area: header1
            
       - type: horizontal-stack
         cards:
-          - !include touch/home/grafico.yaml
+          - !include touch/home/grafico_energy.yaml
         view_layout:       
            grid-area: gr           
 
+      - type: horizontal-stack
+        cards:
+          - !include touch/home/grafico_energy2.yaml
+        view_layout:       
+           grid-area: gr2
            
-      - type: media-control
+           
+           
+      - type: custom:mini-media-player       
         entity: media_player.soggiorno
+        group: false
+        volume_stateless: false
+        artwork: full-cover
+        source: full
+        sound_mode: full
+        info: short
+        replace_mute: play_pause
         view_layout:       
-           grid-area: play 
+           grid-area: a   
            
-      - type: media-control
-        entity: media_player.living_room_tv     
-        view_layout:       
-           grid-area: s 
-
            
       - type: horizontal-stack
         cards:
-          - !include touch/home/butt.yaml
+          - !include touch/home/meteo.yaml
         view_layout:       
            grid-area: meteo  
 
@@ -168,15 +150,6 @@ views:
            grid-area: footer 
            
            
-      - type: picture-glance
-        title: ingresso
-        entities:
-          - entity: camera.netatmo_videocamera_ingresso
-          - entity: light.netatmo_videocamera_ingresso
-        camera_image: camera.netatmo_videocamera_ingresso
-        camera_view: live
-        view_layout:       
-           grid-area: cam 
 
 
 
@@ -214,310 +187,6 @@ views:
           - !include touch/home/3d.yaml 
         view_layout:       
            grid-area: footer              
- 
-           
-  - title: Musica
-    icon: 'mdi:music'
-    type: custom:grid-layout
-    layout:
-      grid-template-columns: 140px 127px 127px 127px 127px 127px 127px 127px 
-      grid-template-rows: 160px 260px 260px 1060px 60px
-      grid-template-areas: |
-        "play play play play play side side side"
-        "play play play play play side side side"
-        "play play play play play side side side"
-        "footer footer footer footer footer footer footer footer" 
-        "menu menu menu menu menu menu menu menu"
-    cards:
-
-           
-      - type: horizontal-stack
-        cards:
-          - !include touch/home/player.yaml
-        view_layout:       
-           grid-area: play 
-      - type: horizontal-stack
-        cards:
-          - !include touch/home/menu.yaml 
-        view_layout:       
-           grid-area: menu 
-      - type: horizontal-stack
-        cards:
-          - !include touch/home/3d.yaml 
-        view_layout:       
-           grid-area: footer   
-   
-
-
-  
-  - title: Meteo
-    icon: 'mdi:weather-partly-cloudy'
-    type: custom:grid-layout
-    layout:
-      grid-template-columns: 140px 127px 127px 127px 127px 127px 127px 127px 
-      grid-template-rows: 160px 260px 260px 1060px 60px
-      grid-template-areas: |
-        "header1 header1 header2 header2 header3 header3 header4 header4"
-        "meteo meteo meteo meteo meteo meteo meteo meteo"
-        "meteo meteo meteo meteo meteo meteo meteo meteo"
-        "footer footer footer footer footer footer footer footer" 
-        "menu menu menu menu menu menu menu menu"
-    cards:
-      - type: gauge
-        entity: sensor.solaredge_current_power
-        min: 0
-        max: 5000
-        severity:
-          green: 1
-          yellow: 0
-          red: 0
-        view_layout:
-           grid-area: header1
-      - type: gauge
-        entity: sensor.solaredge_grid_power
-        min: 0
-        max: 100
-        severity:
-          green: 0
-          yellow: 3000
-          red: 4000
-        view_layout:
-           grid-area: header2
-      - type: gauge
-        entity: sensor.pdc_power_2
-        min: 0
-        max: 3000
-        severity:
-          blue: 1
-          yellow: 0
-          red: 0
-        view_layout:          
-           grid-area: header3
-      - type: gauge
-        entity: sensor.total_power
-        min: 0
-        max: 4000
-        severity:
-          green: 0
-          blue: 1
-          red: 0
-        view_layout:
-           grid-area: header4
-           
-      - type: horizontal-stack
-        cards:
-          - !include touch/home/meteo.yaml
-        view_layout:       
-           grid-area: meteo 
-           
-
-      - type: horizontal-stack
-        cards:
-          - !include touch/home/menu.yaml 
-        view_layout:       
-           grid-area: menu 
-           
-      - type: horizontal-stack
-        cards:
-          - !include touch/home/3d.yaml 
-        view_layout:       
-           grid-area: footer 
-           
- 
-
-
-           
-  - title: Sistema
-    icon: 'mdi:server'
-    type: custom:grid-layout
-    layout:
-      grid-template-columns: 140px 127px 127px 127px 127px 127px 127px 127px  
-      grid-template-rows: 160px 260px 260px 1060px 60px
-      grid-template-areas: |
-        "header2 header2 header1 header1 header1 header1 header4 header4"
-        "play play play play fv fv fv fv"
-        "play play play play termo1 termo1 termo2 termo2"
-        "footer footer footer footer footer footer footer footer" 
-        "menu menu menu menu menu menu menu menu"
-    cards:
-      - type: entity
-        entity: sensor.time
-        size: 140px
-        font_size: 140px
-        view_layout:          
-           grid-area: header2          
-           
-      - type: gauge
-        entity: sensor.solaredge_energy_today
-        min: 0
-        max: 30000
-        severity:
-          blue: 1
-          yellow: 0
-          red: 0
-        view_layout:          
-           grid-area: header4
-      - type: 'custom:bar-card'
-        entities:
-          - entity: sensor.solaredge_solar_power
-            icon:
-            direction: right
-            color: green
-            height: 55px
-            max: '5'
-            width: 160px
-            name: Prodotta
-          - entity: sensor.total_power
-            icon: 'mdi:transmission-tower'
-            color: red
-            height: 55px
-            direction: right
-            width: 50px
-            max: '4000'
-            name: consumo
-            positions:
-              minmax: 'off'
-              value: inside
-              indicator: outside
-            animation:
-              state: 'off'
-            target: '0'
-        columns: '1'
-        animation:
-          state: 'off'
-        severity:
-          - {}
-        positions:
-          indicator: outside
-          icon: outside
-          name: inside
-        direction: right
-        height: 100px
-        width: 100px
-        color: blue
-        title: 
-        view_layout:
-           grid-area: header1
-           
-           
-      - type: horizontal-stack
-        cards:
-          - !include touch/home/fv.yaml
-        view_layout:       
-           grid-area: fv            
-      - type: horizontal-stack
-        cards:
-          - !include touch/home/player.yaml
-        view_layout:       
-           grid-area: play 
-      - type: horizontal-stack
-        cards:
-          - !include touch/home/menu.yaml 
-        view_layout:       
-           grid-area: menu 
-           
-      - type: map
-        entities:
-          - device_tracker.iphone_3
-          - device_tracker.iphone_2 
-        view_layout:       
-           grid-area: footer   
-           
-           
-      - type: horizontal-stack
-        cards:
-          - !include touch/home/termo1.yaml 
-        view_layout:       
-           grid-area: termo1           
-      - type: horizontal-stack
-        cards:
-          - !include touch/home/termo1.yaml 
-        view_layout:       
-           grid-area: termo2   
-
-  - title: consumi
-    icon: 'mdi:power-plug'
-    type: custom:grid-layout
-    layout:
-      grid-template-columns: 140px 127px 127px 127px 127px 127px 127px 127px 
-      grid-template-rows: 160px 260px 260px 1060px 60px
-      grid-template-areas: |
-        "header1 header1 header2 header2 header3 header3 header4 header4"
-        "gra gra gra gra oggi oggi oggi oggi"
-        "gra gra gra gra oggi oggi oggi oggi"
-        "footer footer footer footer footer footer footer footer" 
-        "menu menu menu menu menu menu menu menu"
-    cards:
-      - type: gauge
-        entity: sensor.solaredge_current_power
-        min: 0
-        max: 5000
-        severity:
-          green: 1
-          yellow: 0
-          red: 0
-        view_layout:
-           grid-area: header1
-      - type: gauge
-        entity: sensor.solaredge_grid_power
-        min: 0
-        max: 100
-        severity:
-          green: 0
-          yellow: 3000
-          red: 4000
-        view_layout:
-           grid-area: header2
-      - type: gauge
-        entity: sensor.solaredge_energy_today
-        min: 0
-        max: 30000
-        severity:
-          blue: 1
-          yellow: 0
-          red: 0
-        view_layout:          
-           grid-area: header3
-      - type: gauge
-        entity: sensor.total_power
-        min: 0
-        max: 4000
-        severity:
-          green: 0
-          blue: 1
-          red: 0
-        view_layout:
-           grid-area: header4
-           
-      - type: horizontal-stack
-        cards:
-          - !include touch/home/fv.yaml
-        view_layout:       
-           grid-area: fv 
-           
-      - type: horizontal-stack
-        cards:
-          - !include touch/home/grafico.yaml
-        view_layout:       
-           grid-area: gra 
-           
-      - type: horizontal-stack
-        cards:
-          - !include touch/home/menu.yaml 
-        view_layout:       
-           grid-area: menu 
-           
-      - type: horizontal-stack
-        cards:
-          - !include touch/home/3d.yaml 
-        view_layout:       
-           grid-area: footer 
-           
-      - type: horizontal-stack
-        cards:
-          - !include touch/home/oggi.yaml 
-        view_layout:       
-           grid-area: oggi           
               
 
               
