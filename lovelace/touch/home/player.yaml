@@ -1,0 +1,8 @@
+type: 'custom:mini-media-player'
+entity: media_player.soggiorno
+group: true
+volume_stateless: true
+artwork: full-cover
+source: full
+sound_mode: full
+info: short

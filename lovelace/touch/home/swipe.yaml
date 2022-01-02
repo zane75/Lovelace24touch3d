@@ -1,0 +1,24 @@
+type: 'custom:mod-card'
+style:
+  swipe-card:
+    $: |
+      .swiper-pagination {
+        top: 2px;
+        height: 1vw;
+        }
+card:
+  type: 'custom:swipe-card'
+  parameters:
+    effect: cube
+    cubeEffect:
+      shadow: true
+      slideShadows: true
+      shadowOffset: 20
+      shadowScale: 0.94
+    pagination:
+      type: bullets
+      hide: false
+      draggable: true
+      snapOnRelease: true
+  cards:
+    - !include touch/home/fv.yaml

@@ -1,0 +1,67 @@
+        type: picture-elements
+        image: /local/foto/background.png
+        elements:
+
+          #################################################
+          #                                               #
+          #                    bagno                      #
+          #                                               #
+          #################################################
+
+          - type: custom:button-card
+            entity: light.faretti_bagno
+            style:
+              top: 64.5%
+              left: 55.18%
+              width: 10%
+            template:
+              - light2
+              - icon_bathroom
+
+
+
+          #################################################
+          #                                               #
+          #                   cucina                      #
+          #                                               #
+          #################################################
+
+          - type: custom:button-card
+            entity: light.lampadario_cucina
+            style:
+              top: 82.1%
+              left: 55.18%
+              width: 10%
+            template:
+              - light2
+              - icon_closet
+
+
+          #################################################
+          #                                               #
+          #                     salotto                   #
+          #                                               #
+          #################################################
+
+          - type: custom:button-card
+            entity: light.faretti_salotto
+            style:
+              top: 82.1%
+              left: 66.14%
+              width: 10%
+            template:
+              - light2
+              - icon_spot
+
+
+
+          - type: custom:button-card
+            entity: media_player.living_room_tv
+            style:
+              top: 64.5%
+              left: 66.14%
+              width: 10%
+            template:
+              - base
+              - icon_tv
+              - loader

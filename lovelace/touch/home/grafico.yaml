@@ -1,0 +1,14 @@
+type: 'custom:apexcharts-card'
+graph_span: 1d
+all_series_config:
+  stroke_width: 2
+series:
+  - entity: sensor.consumo_power
+    type: area
+    color: red
+  - entity: sensor.solaredge_current_power
+    type: area
+    color: green
+apex_config:
+  chart:
+    height: 270px
