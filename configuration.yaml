@@ -138,11 +138,7 @@ lovelace:
     type: module
   - url: /hacsfiles/light-entity-card/light-entity-card.js   
     type: module
-  - url: /hacsfiles/power-distribution-card/power-distribution-card.js
-    type: module
   - url: /hacsfiles/sidebar-card/sidebar-card.js
-    type: module
-  - url: /hacsfiles/tesla-style-solar-power-card/tesla-style-solar-power-card.js
     type: module
   - url: /hacsfiles/hass-shutter-card/hass-shutter-card.js
     type: module    
@@ -309,25 +305,22 @@ switch:
         
 sensor:
 
+        
   - platform: myhome
     devices:
       general_power:
         where: '51'
-        name: Total power
+        name: consumo
         class: power
         manufacturer: BTicino
-        model: F521
-        
-  - platform: myhome
-    devices:               
-      att_power:
+        model: F521                           
+      pdc_power:
         where: '71'
-        name: pdc power
+        name: pdc
         class: power
         manufacturer: BTicino
         model: F522  
-        
-        
+                     
   - platform: time_date
     display_options:
       - 'time'
@@ -338,37 +331,10 @@ sensor:
       - 'time_date'
       - 'time_utc'
       - 'beat'
-  - platform: buienradar
-    name: 'meteo'
-    timeframe: 60
-    monitored_conditions:
-      - stationname
-      - barometerfc
-      - barometerfcname
-      - conditioncode
-      - condition
-      - conditiondetailed
-      - conditionexact
-      - conditionexact_1d
-      - symbol
-      - feeltemperature
-      - temperature
-      - groundtemperature
-      - windspeed
-      - windforce
-      - windgust
-      - rain_1d
-      - windspeed_1d
-      - rainchance_1d
-      - precipitation
-      - irradiance
-      - precipitation_forecast_average
-      - precipitation_forecast_total
-      - rainlast24hour
-      - rainlasthour        
+  
       
   - platform: qnap
-    host: 192.168.0.17
+    host: 192.168.0.110
     username: !secret qnap_username
     password: !secret qnap_password
     monitored_conditions:
@@ -387,7 +353,6 @@ sensor:
         friendly_name: 'Luci Accese'
         icon_template: 'mdi:lightbulb-group-outline'
         value_template: "{{ states.light | selectattr('state', 'eq', 'on') | list | count }}"
-       
        
 
     
