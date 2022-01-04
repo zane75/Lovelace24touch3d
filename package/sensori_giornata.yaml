@@ -1,38 +1,5 @@
 sensor:
-
-#------------------------------------------------------------------------------
-# SENSORE LUMINOSITA IN BASE ALLE CONDIONI METEO necessita integrazione - openweathermap -
-#------------------------------------------------------------------------------
-
-  - platform: template 
-    sensors: 
-      cloud_perc:
-        icon_template: mdi:weather-cloudy
-        value_template: >-          
-          {%- set opacity = states('sensor.openweathermap_cloud_coverage') | float %}
-          {%- if   opacity >=  50 and opacity < 100   -%}50
-          {%- elif opacity >=  45 and opacity < 50    -%}45
-          {%- elif opacity >=  40 and opacity < 45    -%}40
-          {%- elif opacity >=  35 and opacity < 40    -%}35
-          {%- elif opacity >=  30 and opacity < 35    -%}30
-          {%- elif opacity >=  25 and opacity < 30    -%}25
-          {%- elif opacity >=  20 and opacity < 25    -%}20
-          {%- elif opacity >=  15 and opacity < 20    -%}15
-          {%- elif opacity >=  10 and opacity < 15    -%}10
-          {%- elif opacity >=  5  and opacity < 10    -%}5
-          {%- elif opacity >=  0  and opacity < 5     -%}0
-          {%- else                                    -%}0 
-          {%- endif -%}
-        unit_of_measurement: '%'
-
-      cloud_opacity:
-        icon_template: mdi:weather-cloudy
-        value_template: >-
-          {%- set sunpct = states('sensor.cloud_perc') | float %}
-          {%- set opacity = (100 - sunpct) / 100 | float %}
-          {{ opacity }}
-          
-
+###############################################################################
 #------------------------------------------------------------------------------
 # SENSORE MAX ELEVAZIONE SOLARE IERI_OGGI
 #------------------------------------------------------------------------------
@@ -51,9 +18,8 @@ sensor:
     entity_id: sensor.elevazione
     max_age:
       hours: 25
-    sampling_size: 400
-    
-    
+    state_characteristic: value_max  
+    sampling_size: 400    
 #------------------------------------------------------------------------------
 # SENSORE ELEVAZIONE SOLARE
 #------------------------------------------------------------------------------
@@ -67,7 +33,7 @@ sensor:
         friendly_name: "elevazione"
         unit_of_measurement: '°'
         value_template: >-
-          {{states.sun.sun.attributes.elevation|float}}
+          {{state_attr('sun.sun','elevation')|float(default=0)}}
 
 #------------------------------------------------------------------------------
 # SENSORE ELEVAZIONE SOLARE
@@ -82,21 +48,35 @@ sensor:
         friendly_name: "% alba tramonto"
         unit_of_measurement: '%'
         value_template: >-
-            {% set elev = states.sun.sun.attributes.elevation%}
+            {% set elev = state_attr('sun.sun','elevation')%}
             {% if elev+8 < 0 %}
               {{0}}
             {% else %}
-              {% set appoggio = (elev+8)/(states.sensor.stats.attributes.max_value+8) %}
-                {% if states.sun.sun.attributes.rising == true %}
-                  {{appoggio*50}}
+              {% set appoggio = (elev+8)/(states('sensor.stats')|int(default=0)+8) %}
+                {% if state_attr('sun.sun','rising') == true %}
+                  {{(appoggio*50)|round(0, default=0)}}
                 {% else %}
-                  {{50 + ((1-appoggio)*50)}}
+                  {{50 + ((1-appoggio)*50)|round(0, default=0)}}
             {% endif %}
             {% endif %}
             
-#------------------------------------------------------------------------------
-# SENSORE CHE DIVIDE ORE SOLARI IN 54 FOTO + FOTO NOTTE
-#------------------------------------------------------------------------------            
+      perc_alba_tramonto_2:
+        friendly_name: "% alba tramonto_2"
+        unit_of_measurement: '%'
+        value_template: >-
+            {% set elev = state_attr('sun.sun','elevation')%}
+            {% if elev+8 < 0 %}
+              {{0}}
+            {% else %}
+              {% set appoggio = (elev+8)/(states('sensor.stats')|int(default=0)+8) %}
+                {% if states.sun.sun.attributes.rising == true %}
+                  {{(appoggio*100)|round(0,default=0)}}
+                {% else %}
+                  {{50 + ((1-appoggio)*50)|round(0,default=0)}}
+            {% endif %}
+            {% endif %}
+            
+
       my_day_2:
         icon_template: mdi:weather-sunny
         value_template: >-
