@@ -1,4 +1,37 @@
 sensor:
+
+#------------------------------------------------------------------------------
+# SENSORE LUMINOSITA IN BASE ALLE CONDIONI METEO necessita integrazione - openweathermap -
+#------------------------------------------------------------------------------
+
+  - platform: template 
+    sensors: 
+      cloud_perc:
+        icon_template: mdi:weather-cloudy
+        value_template: >-          
+          {%- set opacity = states('sensor.openweathermap_cloud_coverage') | float %}
+          {%- if   opacity >=  50 and opacity < 100   -%}50
+          {%- elif opacity >=  45 and opacity < 50    -%}45
+          {%- elif opacity >=  40 and opacity < 45    -%}40
+          {%- elif opacity >=  35 and opacity < 40    -%}35
+          {%- elif opacity >=  30 and opacity < 35    -%}30
+          {%- elif opacity >=  25 and opacity < 30    -%}25
+          {%- elif opacity >=  20 and opacity < 25    -%}20
+          {%- elif opacity >=  15 and opacity < 20    -%}15
+          {%- elif opacity >=  10 and opacity < 15    -%}10
+          {%- elif opacity >=  5  and opacity < 10    -%}5
+          {%- elif opacity >=  0  and opacity < 5     -%}0
+          {%- else                                    -%}0 
+          {%- endif -%}
+        unit_of_measurement: '%'
+
+      cloud_opacity:
+        icon_template: mdi:weather-cloudy
+        value_template: >-
+          {%- set sunpct = states('sensor.cloud_perc') | float %}
+          {%- set opacity = (100 - sunpct) / 100 | float %}
+          {{ opacity }}
+
 ###############################################################################
 #------------------------------------------------------------------------------
 # SENSORE MAX ELEVAZIONE SOLARE IERI_OGGI
@@ -77,6 +110,10 @@ sensor:
             {% endif %}
             
 
+            
+#------------------------------------------------------------------------------
+# SENSORE CHE DIVIDE ORE SOLARI IN 54 FOTO + FOTO NOTTE
+#------------------------------------------------------------------------------            
       my_day_2:
         icon_template: mdi:weather-sunny
         value_template: >-
