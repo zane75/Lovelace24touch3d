@@ -365,7 +365,7 @@
           return `<ha-icon
             icon="mdi:thermometer"
             style="width: 15px; height: 15px; color: red;">
-            </ha-icon><span>${states['sensor.temperatura_salotto'].state} %</span>`
+            </ha-icon><span>${states['sensor.temperatura_salotto'].state} °</span>`
         ]]]              
       stato: |
         [[[
