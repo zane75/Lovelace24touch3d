@@ -1,0 +1,403 @@
+button_card_templates: !include button_card_templates.yaml
+
+
+kiosk_mode:
+  user_settings:
+    - users:
+        - "touch"
+      hide_sidebar: true
+      hide_header: true
+     
+views: 
+  - title: Control Rooms
+    icon: 'mdi:floor-plan'
+    type: custom:grid-layout
+    layout:
+      grid-template-columns: 85px 85px 85px 85px 200px 200px 170px 170px 
+      grid-template-rows: 90px 30px 55px 50px 50px 90px 60px 50px 100px 170px 60px 1000px 
+      grid-template-areas: |
+        "m m m g g g u u"
+        "l l l g g g u u"
+        "l l l g g g u u"        
+        "l l l g g g u u"
+        "l l l g g g u u"        
+        "h h h h v v t n"        
+        "h h h h v v t n"        
+        "h h h h v v t n" 
+        "b b b z v v s s"        
+        "b b b z w w s s"
+        "x x j j w w s s"       
+        "footer footer footer footer footer footer footer footer"     
+        "e e e e e e e e"         
+    cards:
+#################################################################
+## orario
+#################################################################          
+      - type: custom:digital-clock
+  
+        dateFormat:
+          weekday: short
+          day: 2-digit
+          month: short
+      
+        timeFormat:
+          hour: 2-digit
+          minute: 2-digit
+        view_layout:          
+           grid-area: m
+           
+      - type: custom:swipe-card     
+        cards:
+          - !include lovelace/calendario.yaml        
+        view_layout:          
+           grid-area: v
+                    
+
+
+
+
+#################################################################
+## lavatrice
+#################################################################   
+      - type: custom:swipe-card     
+        cards:             
+          - !include lovelace/pdc.yaml  
+          - !include lovelace/lavatrice.yaml          
+          - !include lovelace/frigo.yaml         
+          - !include lovelace/forno.yaml  
+          - !include lovelace/induzione.yaml 
+        view_layout:          
+           grid-area: w           
+#################################################################
+## consumi
+#################################################################             
+      - type: gauge
+        entity: sensor.solaredge_potenza_di_rete
+        needle: true
+        severity:
+          green: 0
+          yellow: 1
+          red: 3
+        max: 5
+        min: 0
+        name: CONSUMI
+        view_layout:          
+           grid-area: n
+           
+      - type: gauge
+        entity: sensor.solaredge_potenza_attuale
+        needle: true
+        severity:
+          green: 0
+          yellow: 1
+          red: -1
+        name: FOTOVOLTAICO      
+        view_layout:
+           grid-area: t 
+           
+      - type: energy-usage-graph
+        view_layout:       
+           grid-area: h    
+           
+      - type:  energy-distribution 
+        view_layout:       
+           grid-area: u      
+#################################################################
+## sonos
+#################################################################
+      - type: media-control
+        entity: media_player.sonos_2
+        view_layout:
+           grid-area: s            
+#################################################################
+## meteo
+################################################################# 
+      - type: weather-forecast
+        entity: weather.forecast_casa
+        show_current: false
+        show_forecast: true
+        secondary_info_attribute: temperature       
+        forecast_type: daily
+        view_layout:       
+           grid-area: l  
+
+#################################################################
+## clima
+#################################################################
+      - type: tile
+        entity: sensor.caminetto_alarm
+        layout_options:
+        name: ALL.
+        view_layout:       
+           grid-area: x
+           
+      - type: tile
+        entity: sensor.caminetto_smoke_temperature
+        layout_options:
+        name: FUMI
+        view_layout:       
+           grid-area: j           
+           
+
+      - type: custom:bar-card
+        entity: sensor.livello_serbatoio                    
+        title: Pellet
+        direction: up
+        positions:
+          icon: "off"
+          indicator: inside
+          name: "off"
+        height: 150px
+        type: custom:bar-card
+        layout_options:
+        severity:
+          - color: Red
+            from: 0
+            to: 20
+          - color: Orange
+            from: 20
+            to: 70
+          - color: Green
+            from: 70
+            to: 100     
+        view_layout:       
+           grid-area: z    
+           
+      - type: thermostat      
+        entity: climate.caminetto  
+        layout_options:
+        show_current_as_primary: true
+        features:
+        - type: climate-hvac-modes
+        name: " "
+        entity: climate.caminetto
+        name: caminetto
+        view_layout:       
+           grid-area: b 
+#################################################################
+## menu camera 
+#################################################################              
+      - type: custom:frigate-card
+        cameras:
+          - camera_entity: camera.reolink_1_scorrevole
+        view:
+          default: live
+        dimensions:
+          aspect_ratio_mode: dynamic
+        performance:
+          profile: high          
+          
+          
+        view_layout:       
+           grid-area: g
+                 
+        
+#################################################################
+## menu swipe 
+#################################################################           
+      - type: custom:swipe-card     
+        cards:
+          - !include lovelace/3d.yaml      
+        view_layout:       
+           grid-area: footer 
+       
+
+#################################################################
+## menu popup 
+#################################################################  
+
+    
+      - type: custom:bubble-card
+        card_type: horizontal-buttons-stack
+        1_icon: mdi:lightbulb
+        1_link: "#luci"
+        2_link: "#tapparelle"
+        2_icon: mdi:window-shutter
+        3_icon: mdi:gate
+        3_link: "#cancello"
+        4_link: "#door"
+        4_icon: mdi:door
+        5_link: "#energia"
+        5_icon: mdi:power-plug-battery-outline    
+        6_link: "#video"
+        6_icon: mdi:video
+        7_link: "#clima"
+        7_icon: mdi:thermometer        
+        view_layout:          
+           grid-area: header2  
+#################################################################
+##tapparelle popup 
+################################################################# 
+
+      - type: vertical-stack
+        cards:
+          - type: custom:bubble-card
+            card_type: pop-up
+            hash: "#tapparelle"
+            icon: mdi:fridge
+            
+            margin_top_mobile: calc(100vh - 800px)
+            margin_top_desktop: calc(100vh - 1400px)
+            width_desktop: 700px            
+            
+          - type: 'custom:shutter-card'
+            title: tapparelle
+            entities:
+              - entity: cover.tapparella_salotto
+                name: Salotto
+                buttons_position: left
+                title_position: left              
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:shutter-card'           
+                entities:                            
+                  - entity: cover.tapparella_camera_1
+                    name: camera_1
+                    buttons_position: left
+                    title_position: left   
+              - type: 'custom:shutter-card'           
+                entities:                    
+                  - entity: cover.tapparella_camera_2
+                    name: camera_2
+                    buttons_position: left
+                    title_position: left                               
+                    shutter_width_px: 100
+                    disable_end_buttons: true                   
+                
+#################################################################
+## energia popup 
+#################################################################             
+
+      - type: vertical-stack
+        cards:
+          - type: custom:bubble-card
+            card_type: pop-up
+            hash: "#energia"
+            icon: mdi:fridge
+            margin_top_mobile: calc(100vh - 800px)
+            margin_top_desktop: calc(100vh - 1800px)
+            width_desktop: 600px
+            
+            
+          - type: custom:bubble-card
+            card_type: button
+            entity: sensor.solaredge_energia_dall_installazione
+            button_type: state
+            
+          - type: custom:bubble-card
+            card_type: separator
+            
+          - type: custom:bubble-card
+            card_type: button
+            entity: sensor.solaredge_energia_quest_anno
+            button_type: state
+            
+          - type: energy-distribution  
+          - type: custom:bubble-card
+            card_type: separator            
+            
+          - type: energy-date-selection         
+          - type: energy-usage-graph
+          - type: energy-solar-graph 
+          - type: energy-devices-graph
+          
+          
+            
+          - type: custom:bubble-card
+            card_type: separator
+            
+          - type: horizontal-stack
+            cards:
+              - type: gauge
+                entity: sensor.solaredge_consumo_di_potenza
+                max: 5
+                severity:
+                  green: 0
+                  yellow: 0.5
+                  red: 4
+                name: CONSUMO      
+
+              - type: gauge
+                entity: sensor.solaredge_energia_oggi
+                unit: wh
+                severity:
+                  green: 0
+                  yellow: 0
+                  red: 0
+                needle: true
+                max: 50000 
+                layout_options:
+                  grid_columns: 2
+                  grid_rows: 3
+                name: PRODOTTA  
+              
+              - type: gauge
+                entity: sensor.solaredge_potenza_attuale
+                max: 5000
+                severity:
+                  green: 0.1
+                  yellow: 0
+                  red: 0
+                name: FOTOVOLTAICO                
+                               
+#################################################################
+## clima popup 
+#################################################################            
+      - type: vertical-stack
+        cards:
+          - type: custom:bubble-card
+            card_type: pop-up
+            hash: "#clima"
+            margin_top_mobile: calc(100vh - 1000px)
+            margin_top_desktop: calc(100vh - 1600px)     
+            width_desktop: 600px
+            
+          - type: horizontal-stack
+            cards:
+              - type: thermostat
+                entity: climate.termostato_camera
+                show_current_as_primary: true
+                name: camera  
+                features:
+                  - type: climate-hvac-modes
+                  
+                  
+              - type: thermostat
+                entity: climate.termostato_salotto
+                show_current_as_primary: true
+                name: saollotto
+                features:
+                  - type: climate-hvac-modes
+                  
+          - type: horizontal-stack
+            cards:
+              - type: thermostat
+                entity: climate.termostato_camera_greta
+                show_current_as_primary: true
+                name: greta
+                features:
+                  - type: climate-hvac-modes
+                  
+                  
+              - type: thermostat
+                entity: climate.termostato_camera_bianca
+                show_current_as_primary: true
+                name: bianca
+                features: 
+
+          - type: horizontal-stack
+            cards:
+              - type: thermostat
+                entity: climate.termostato_camera_bianca
+                show_current_as_primary: true
+                name: bagno
+                features:
+                  - type: climate-hvac-modes
+                  
+                  
+              - type: thermostat
+                entity: climate.termostato_camera_bianca
+                show_current_as_primary: true
+                name: birrificio
+                features:
+                  - type: climate-hvac-modes                          

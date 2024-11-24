@@ -1,0 +1,35 @@
+type: picture-elements
+elements:
+  - type: custom:atomic-calendar-revive
+    name: Calendario
+    entities:
+      - entity: calendar.breewzane_gmail_com
+    fullDayEventText: All day
+    untilText: Until
+    showColors: true
+    maxDaysToShow: 3
+    showLocation: true
+    showMonth: false
+    showCurrentEventLine: true
+    dateColor: black
+    dateSize: 90
+    timeColor: blue
+    timeSize: 90
+    titleColor: black
+    titleSize: 100
+    locationIconColor: rgb(230, 124, 115)
+    locationLinkColor: black
+    locationTextSize: 90
+    dimFinishedEvents: true
+    finishedEventOpacity: 0.6
+    finishedEventFilter: grayscale(100%)
+    dayWrapperLineColor: black
+    eventBarColor: blue
+    showProgressBar: true
+    progressBarColor: blue
+    
+    style:
+      left: 50%
+      top: 50%
+      width: 75%
+image: /local/foto/pit2.png

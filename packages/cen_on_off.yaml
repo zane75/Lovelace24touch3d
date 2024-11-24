@@ -1,0 +1,63 @@
+automation:
+
+         
+         
+  - alias: 'camera greta on'
+    trigger:
+      - platform: event
+        event_type: myhome_cenplus_event 
+        event_data:
+          event: pushbutton_short_press 
+          object: 1
+          pushbutton: 1
+    action:
+      - service: light.turn_on
+        data:
+          effect: stop_effect
+          entity_id: light.led_greta
+          brightness: 255
+        
+
+  - alias: 'camera greta off'
+    trigger:
+      - platform: event
+        event_type: myhome_cenplus_event 
+        event_data: 
+          event: pushbutton_short_press 
+          object: 1
+          pushbutton: 2
+    action:
+      - service: light.turn_off
+        data:
+         entity_id: light.led_greta
+         
+
+
+  - alias: 'camera creta colorloop'
+    trigger:
+      - platform: event
+        event_type: myhome_cenplus_event 
+        event_data:
+          event: pushbutton_long_press 
+          object: 1
+          pushbutton: 1
+    action:
+    - service: light.turn_on
+      data:
+        effect: colorloop
+        entity_id: light.led_greta
+         
+  - alias: 'camera greta colorloop stop'
+    trigger:
+      - platform: event
+        event_type: myhome_cenplus_event 
+        event_data:
+          event: pushbutton_long_press
+          object: 1
+          pushbutton: 2
+    action:
+      - service: stop_colorloop
+        data:
+         entity_id: light.led_greta
+
+ 

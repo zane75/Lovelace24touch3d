@@ -1,0 +1,265 @@
+type: picture-elements
+image: /local/foto/elettrodomestici/sfondo.png
+elements:
+  - type: image
+    entity: sensor.lavatrice
+    image: /local/foto/elettrodomestici/lavatrice.png
+    state_filter:
+      "off": brightness(50%) saturate(0.5) opacity(1.0)
+      "on": brightness(100%)
+    style:
+      left: 17%
+      top: 52%
+      width: 20%
+    tap_action:
+      action: toggle
+  - type: state-label
+    entity: sensor.z1_pdc_power
+    prefix: "⚡ "
+    style:
+      top: 80%
+      left: 50%
+      pointer-events: none
+      transform: initial
+      font-size: 15px
+      line-height: 24px
+      padding: 0px 14px
+      color: var(--primary-text-color)
+  - type: state-label
+    entity: sensor.z1_pdc_temperature
+    prefix: 🔌
+    style:
+      top: 80%
+      left: 75%
+      pointer-events: none
+      transform: initial
+      font-size: 15px
+      line-height: 24px
+      padding: 0px 14px
+  - type: state-icon
+    entity: switch.z1_pdc
+    icon: mdi:power-standby
+    state_color: true
+    state-color: true
+    style:
+      top: 1%
+      left: 90%
+      transform: scale(1.5)
+      line-height: 24px
+      padding: 0px 2px
+  - type: custom:apexcharts-card
+    style:
+      "--card-background-color": rgba(0, 0, 0, 0.0)
+      "--ha-card-border-width": 0px
+      "--ha-card-box-shadow": none
+      top: 43%
+      left: 60%
+      width: 60%
+      font-size: 12px
+    experimental:
+      color_threshold: true
+    apex_config:
+      chart:
+        height: 145px
+      tooltip:
+        enabled: true
+      title:
+        style:
+          fontSize: 12px
+          fontFamily: Segoe UI Light
+      yaxis:
+        forceNiceScale: true
+        decimalsInFloat: 0
+        labels:
+          style:
+            fontSize: 12px
+            fontFamily: Segoe UI Light
+      xaxis:
+        axisBorder:
+          show: true
+        labels:
+          show: false
+          style:
+            fontSize: 12px
+            fontFamily: Segoe UI Light
+      grid:
+        show: true
+        borderColor: rgba(112, 135, 164, 0.5)
+    graph_span: 24h
+    header:
+      standard_format: false
+      show: false
+      show_states: true
+      colorize_states: true
+      title: Potenza
+    series:
+      - entity: sensor.lavatrice_water_temp
+        name: Potenza
+        type: column
+        stroke_width: 2
+        curve: stepline
+        group_by:
+          func: last
+          fill: last
+          duration: 1h
+        show:
+          header_color_threshold: true
+          extremas: true
+          name_in_header: false
+          legend_value: false
+        opacity: 0.8
+        color_threshold:
+          - color: "#27b376"
+            value: 500
+          - color: "#006f3c"
+            value: 1000
+          - color: "#f9a73e"
+            value: 1500
+          - color: "#bf212f"
+            value: 2300
+  - type: image
+    image: /local/foto/elettrodomestici/wifi.png
+    style:
+      left: 11%
+      top: 11%
+      width: 07%
+    tap_action:
+      action: toggle
+  - type: image
+    image: /local/foto/elettrodomestici/lock.png
+    style:
+      left: 23%
+      top: 11%
+      width: 07%
+    tap_action:
+      action: toggle
+  - type: image
+    image: /local/foto/elettrodomestici/sensing.png
+    style:
+      left: 10%
+      top: 90%
+      width: 10%
+    tap_action:
+      action: toggle
+  - type: image
+    image: /local/foto/elettrodomestici/wash.png
+    style:
+      left: 20%
+      top: 90%
+      width: 10%
+    tap_action:
+      action: toggle
+  - type: image
+    image: /local/foto/elettrodomestici/rinse.png
+    style:
+      left: 30%
+      top: 90%
+      width: 10%
+    tap_action:
+      action: toggle
+  - type: image
+    image: /local/foto/elettrodomestici/spin.png
+    style:
+      left: 40%
+      top: 90%
+      width: 10%
+    tap_action:
+      action: toggle
+  - type: conditional
+    conditions:
+      - entity: sensor.lavatrice_run_state
+        state: lavaggio
+    elements:
+      - type: image
+        image: /local/foto/elettrodomestici/sensing-on.png
+        style:
+          top: 90%
+          left: 10%
+          width: 10%
+        tap_action:
+          action: none
+        hold_action:
+          action: none
+  - type: conditional
+    conditions:
+      - entity: sensor.lavatrice_run_state
+        state: Lavaggio
+    elements:
+      - type: image
+        image: /local/foto/elettrodomestici/wash-on.png
+        style:
+          top: 90%
+          left: 20%
+          width: 10%
+        tap_action:
+          action: none
+        hold_action:
+          action: none
+  - type: conditional
+    conditions:
+      - entity: sensor.lavatrice_run_state
+        state: Risciaquo
+    elements:
+      - type: image
+        image: /local/foto/elettrodomestici/rinse-on.png
+        style:
+          top: 90%
+          left: 30%
+          width: 10%
+        tap_action:
+          action: none
+        hold_action:
+          action: none
+  - type: conditional
+    conditions:
+      - entity: sensor.lavatrice_run_state
+        state: Centrifuga
+    elements:
+      - type: image
+        image: /local/foto/elettrodomestici/spin-on.png
+        style:
+          top: 90%
+          left: 40%
+          width: 10%
+        tap_action:
+          action: none
+        hold_action:
+          action: none
+  - type: conditional
+    conditions:
+      - entity: sensor.lavatrice_ssid
+        state: Home.Z
+    elements:
+      - type: image
+        image: /local/foto/elettrodomestici/wifi-on.png
+        style:
+          top: 11%
+          left: 11%
+          width: 07%
+        tap_action:
+          action: none
+        hold_action:
+          action: none
+  - type: conditional
+    conditions:
+      - entity: binary_sensor.lavatrice_door_lock
+        state: lavaggio
+    elements:
+      - type: image
+        image: /local/foto/elettrodomestici/lock-on.png
+        style:
+          top: 11%
+          left: 23%
+          width: 07%
+        tap_action:
+          action: none
+        hold_action:
+          action: none
+  - type: image
+    image: /local/foto/elettrodomestici/wifi.png
+    style:
+      left: 11%
+      top: 11%
+      width: 07%
+    tap_action:
+      action: toggle

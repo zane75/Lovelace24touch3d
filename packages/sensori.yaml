@@ -1,5 +1,30 @@
-sensor:
+sensor:        
+  - platform: template
+    sensors:
+    
+      livello_serbatoio:
+        friendly_name: "Livello Serbatoio Pellet"      
+        value_template: >-
+                      {% set ingresso = { "min"  : 48,  
+                                          "max"  : 10,
+                                          "sensorePellet": states('sensor.livellopellet_vl53l0x_distance')} %}
 
+                                    {% if (ingresso.sensorePellet | int (default=0)) < ingresso.min %}
+                                     {{((ingresso.sensorePellet|int - ingresso.min) * (100 - 0) / (ingresso.max  - ingresso.min)) |round(0) }}
+                                    {% else %}
+                                      0
+                                    {% endif %}
+                               
+  - platform: mqtt
+    name: pellet_percentuale
+    state_topic: "LivelloPellet"
+    unit_of_measurement: "%"
+    availability_topic: "LivelloPellet/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"           
+
+
+    
 #------------------------------------------------------------------------------
 # SENSORE LUMINOSITA IN BASE ALLE CONDIONI METEO necessita integrazione - openweathermap -
 #------------------------------------------------------------------------------
@@ -48,11 +73,12 @@ sensor:
     # che vengono regstrati in 25 h
 
   - platform: statistics
+    name: "calcolo della massima elevazione"
     entity_id: sensor.elevazione
     max_age:
       hours: 25
     state_characteristic: value_max  
-    sampling_size: 400    
+    sampling_size: 400       
 #------------------------------------------------------------------------------
 # SENSORE ELEVAZIONE SOLARE
 #------------------------------------------------------------------------------
@@ -77,6 +103,7 @@ sensor:
     # dall'alba al tramonto si porta da 0 a 100
     # al tramonto vale 100
     # dal tramonto all'alba vale 0
+                   
       perc_alba_tramonto:
         friendly_name: "% alba tramonto"
         unit_of_measurement: '%'
@@ -85,31 +112,13 @@ sensor:
             {% if elev+8 < 0 %}
               {{0}}
             {% else %}
-              {% set appoggio = (elev+8)/(states('sensor.stats')|int(default=0)+8) %}
+              {% set appoggio = (elev+8)/(states('sensor.calcolo_della_massima_elevazione')|int(default=0)+8) %}
                 {% if state_attr('sun.sun','rising') == true %}
                   {{(appoggio*50)|round(0, default=0)}}
                 {% else %}
                   {{50 + ((1-appoggio)*50)|round(0, default=0)}}
             {% endif %}
             {% endif %}
-            
-      perc_alba_tramonto_2:
-        friendly_name: "% alba tramonto_2"
-        unit_of_measurement: '%'
-        value_template: >-
-            {% set elev = state_attr('sun.sun','elevation')%}
-            {% if elev+8 < 0 %}
-              {{0}}
-            {% else %}
-              {% set appoggio = (elev+8)/(states('sensor.stats')|int(default=0)+8) %}
-                {% if states.sun.sun.attributes.rising == true %}
-                  {{(appoggio*100)|round(0,default=0)}}
-                {% else %}
-                  {{50 + ((1-appoggio)*50)|round(0,default=0)}}
-            {% endif %}
-            {% endif %}
-            
-
             
 #------------------------------------------------------------------------------
 # SENSORE CHE DIVIDE ORE SOLARI IN 54 FOTO + FOTO NOTTE
@@ -118,7 +127,7 @@ sensor:
         icon_template: mdi:weather-sunny
         value_template: >-
           {% set elevation = (states("sensor.perc_alba_tramonto")) %}
-          {% if elevation | float <= 0 %} Notte
+          {% if elevation | float <= 0 %} 55
           {% elif 0 < (elevation|float) <= 1 %} 1  
           {% elif 1 < (elevation|float) <= 2 %} 2
           {% elif 2 < (elevation|float) <= 4 %} 3
@@ -173,3 +182,40 @@ sensor:
           {% elif 98 < (elevation|float) <= 99 %} 53
           {% elif 99 < (elevation|float) <= 100 %} 54
           {%- endif %}
+          
+  - platform: qnap
+    host: 192.168.1.197
+    username: !secret qnap_username
+    password: !secret qnap_password
+    monitored_conditions:
+      - status
+      - cpu_usage
+      - memory_percent_used
+      - network_tx
+      - volume_percentage_used 
+      - drive_temp          
+      
+
+#------------------------------------------------------------------------------
+# SENSORE per lavanderia
+#------------------------------------------------------------------------------ 
+
+                     
+  - platform: template
+    sensors:
+
+     lavatrice_time_display:
+       friendly_name: "lavatrice Time Display"
+       value_template: >
+        {% if is_state('sensor.lavatrice_run_state', '-') %}
+        {% elif is_state('sensor.lavatrice_run_state', 'unavailable') %}
+        {% elif is_state('sensor.lavatrice_run_state', 'Standby') %}
+          -:--
+        {% else %}
+          {{ state_attr("sensor.lavatrice","remain_time").split(":")[:-1] | join(':') }}   
+        {% endif %}
+     
+ 
+     blank:
+       friendly_name: "Blank Sensor"
+       value_template: ""

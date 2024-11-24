@@ -1,0 +1,641 @@
+type: picture-elements
+image: /local/floorplan_foto/transparent.png
+elements:
+  - type: image
+    entity: sensor.my_day_2
+    state_image:
+      "1": /local/floorplan_foto/casa_4.30.png
+      "2": /local/floorplan_foto/casa_4.45.png
+      "3": /local/floorplan_foto/casa_5.00.png
+      "4": /local/floorplan_foto/casa_5.15.png
+      "5": /local/floorplan_foto/casa_5.30.png
+      "6": /local/floorplan_foto/casa_5.45.png
+      "7": /local/floorplan_foto/casa_6.00.png
+      "8": /local/floorplan_foto/casa_6.15.png
+      "9": /local/floorplan_foto/casa_6.30.png
+      "10": /local/floorplan_foto/casa_6.45.png
+      "11": /local/floorplan_foto/casa_7.00.png
+      "12": /local/floorplan_foto/casa_7.15.png
+      "13": /local/floorplan_foto/casa_7.30.png
+      "14": /local/floorplan_foto/casa_8.00.png
+      "15": /local/floorplan_foto/casa_8.15.png
+      "16": /local/floorplan_foto/casa_8.30.png
+      "17": /local/floorplan_foto/casa_8.45.png
+      "18": /local/floorplan_foto/casa_9.00.png
+      "19": /local/floorplan_foto/casa_9.30.png
+      "20": /local/floorplan_foto/casa_10.00.png
+      "21": /local/floorplan_foto/casa_10.30.png
+      "22": /local/floorplan_foto/casa_11.00.png
+      "23": /local/floorplan_foto/casa_11.30.png
+      "24": /local/floorplan_foto/casa_12.00.png
+      "25": /local/floorplan_foto/casa_12.30.png
+      "26": /local/floorplan_foto/casa_12.45.png
+      "27": /local/floorplan_foto/casa_13.00.png
+      "28": /local/floorplan_foto/casa_13.15.png
+      "29": /local/floorplan_foto/casa_13.30.png
+      "30": /local/floorplan_foto/casa_14.00.png
+      "31": /local/floorplan_foto/casa_14.30.png
+      "32": /local/floorplan_foto/casa_15.00.png
+      "33": /local/floorplan_foto/casa_15.30.png
+      "34": /local/floorplan_foto/casa_16.00.png
+      "35": /local/floorplan_foto/casa_16.30.png
+      "36": /local/floorplan_foto/casa_17.00.png
+      "37": /local/floorplan_foto/casa_17.30.png
+      "38": /local/floorplan_foto/casa_18.00.png
+      "39": /local/floorplan_foto/casa_18.30.png
+      "40": /local/floorplan_foto/casa_18.45.png
+      "41": /local/floorplan_foto/casa_19.00.png
+      "42": /local/floorplan_foto/casa_19.15.png
+      "43": /local/floorplan_foto/casa_19.30.png
+      "44": /local/floorplan_foto/casa_19.45.png
+      "45": /local/floorplan_foto/casa_20.00.png
+      "46": /local/floorplan_foto/casa_20.15.png
+      "47": /local/floorplan_foto/casa_20.30.png
+      "48": /local/floorplan_foto/casa_20.45.png
+      "49": /local/floorplan_foto/casa_21.00.png
+      "50": /local/floorplan_foto/casa_21.12.png
+      "51": /local/floorplan_foto/casa_21.15.png
+      "52": /local/floorplan_foto/casa_21.30.png
+      "53": /local/floorplan_foto/casa_21.45.png
+      "54": /local/floorplan_foto/casa_21.45.png      
+      "55": /local/floorplan_foto/casa_4.20.png
+    tap_action:
+      action: none
+    hold_action:
+      action: none
+    style:
+      top: 50%
+      left: 50%
+      width: 100% 
+      
+
+          
+#################################### effetti meteo ###########################################################################################
+          
+  - action: none
+    entity: sensor.openweathermap_weather
+    hold_action:
+      action: none
+    state_image:
+      temporale con pioggia leggera: /local/foto/pioggia.gif
+      temporale con pioggia: /local/foto/pioggia.gif
+      temporale con pioggia battente: /local/foto/pioggia.gif
+      Temporale leggero: /local/foto/pioggia.gif
+      temporale: /local/foto/temporale.png
+      forte temporale: /local/foto/pioggia.gif
+      Temporale irregolare: /local/foto/pioggia.gif
+      temporale con pioggerellina leggera: /local/foto/pioggia.gif
+      temporale con pioggerellina: /local/foto/pioggia.gif
+      temporale con forte pioggerellina: /local/foto/pioggia.gif
+      acquazzone: /local/foto/pioggia.gif
+      
+      pioviggine di intensità luminosa: /local/foto/pioggia.gif
+      pioggerella: /local/foto/pioggia.gif
+      Intensità della luce Pioviggine Pioggia: /local/foto/pioggia.gif
+      pioviggine: /local/foto/pioggia.gif
+      pioggerellina di forte intensità: /local/foto/pioggia.gif
+      doccia pioggia e pioviggine: /local/foto/pioggia.gif
+      forti piogge e pioggerellina: /local/foto/pioggia.gif
+      pioggerellina sotto la doccia: /local/foto/pioggia.gif
+
+      pioggia leggera: /local/foto/pioggia.gif
+      pioggia moderata: /local/foto/pioggia.gif
+      pioggia di forte intensità: /local/foto/pioggia.gif
+      pioggia molto forte: /local/foto/pioggia.gif
+      pioggia estrema: /local/foto/pioggia.gif
+      pioggia gelata: /local/foto/pioggia.gif
+      Pioggia doccia di intensità luminosa: /local/foto/pioggia.gif
+      doccia a pioggia: /local/foto/pioggia.gif
+      pioggia di forte intensità: /local/foto/pioggia.gif
+      pioggia doccia irregolare: /local/foto/pioggia.gif
+
+      neve leggera: /local/foto/neve.gif
+      neve: /local/foto/neve.gif
+      Nevicate: /local/foto/neve.gif
+      nevischio: /local/foto/neve.gif
+      nevischio leggero sotto la doccia: /local/foto/neve.gif
+      nevischio da doccia: /local/foto/neve.gif   
+      pioggia leggera e neve: /local/foto/neve.gif
+      pioggia e neve: /local/foto/neve.gif
+      pioggia leggera neve: /local/foto/neve.gif
+      doccia neve: /local/foto/neve.gif
+      Forte pioggia di neve: /local/foto/neve.gif
+      
+      
+      nebbia: /local/foto/smoke.png      
+      fumo: /local/foto/nuvole2.png        
+      vortici di sabbia/polvere: /local/foto/nuvole2.png       
+      sabbia: /local/foto/nuvole2.png      
+      polvere: /local/foto/nuvole2.png          
+      Cenere vulcanica: /local/foto/nuvole2.png       
+      Burrasche: /local/foto/nuvole2.png     
+      tornado: /local/foto/tornado.png     
+      foschia: /local/foto/smoke.png 
+
+      poche nuvole: /local/foto/smoke.png
+      nubi sparse: /local/foto/smoke.png
+      nuvole sparse: /local/foto/smoke.png
+      nuvole nuvolose: /local/foto/smoke.png
+      
+      cielo sereno: /local/foto/transparent.png
+      cielo coperto: /local/foto/nuvole2.png 
+      
+      
+    style:
+      mix-blend-mode: lighten
+      left: 50%
+      top: 50%
+      width: 140%
+    type: image
+          
+#################################### sensori stanze ###########################################################################################
+          
+          
+  - type: state-label
+    entity: climate.termostato_camera
+    attribute: current_temperature
+    suffix: C°
+    prefix: 🌡️
+    style:
+      left: 26%
+      top: 62%
+  - type: state-label
+    entity: climate.termostato_camera_greta
+    attribute: current_temperature
+    suffix: C°
+    prefix: 🌡️
+    style:
+      left: 28%
+      top: 40%
+  - type: state-label
+    entity: climate.termostato_camera_bianca
+    attribute: current_temperature
+    suffix: C°
+    prefix: 🌡️
+    style:
+      left: 41%
+      top: 40%
+  - type: state-label
+    entity: climate.termostato_salotto
+    attribute: current_temperature
+    suffix: C°
+    prefix: 🌡️
+    style:
+      left: 47%
+      top: 51%
+  - type: state-label
+    entity: climate.termostato_camera
+    attribute: current_humidity
+    suffix: "%"
+    prefix: 💧
+    style:
+      left: 26%
+      top: 64%
+  - type: state-label
+    entity: climate.termostato_camera_greta
+    attribute: current_humidity
+    suffix: "%"
+    prefix: 💧
+    style:
+      left: 28%
+      top: 42%
+  - type: state-label
+    entity: climate.termostato_camera_bianca
+    attribute: current_humidity
+    suffix: "%"
+    prefix: 💧
+    style:
+      left: 41%
+      top: 42%
+  - type: state-label
+    entity: climate.termostato_salotto
+    attribute: current_humidity
+    suffix: "%"
+    prefix: 💧
+    style:
+      left: 47%
+      top: 53%     
+#################################### stanze luci accese ###########################################################################################
+
+##########################################cucina ################################################
+  - type: conditional
+    conditions:
+      - entity: light.luce_cucina
+        state: "on"
+    elements:
+      - type: image
+        image: /local/foto/cucina hd.png
+        style:
+          filter: >-
+            ${ "hue-rotate(" +
+            (states['light.hue_lampadario_cucina'].attributes.hs_color  ?
+            states['light.hue_lampadario_cucina'].attributes.hs_color[0] : 45) + "deg)
+            hue-rotate(-45deg) saturate(1.5)"}
+          mix-blend-mode: lighten
+          opacity: >-
+            ${states['light.light.hue_lampadario_cucina'].state === 'on' ?
+            (states['light.hue_lampadario_cucina'].attributes.brightness / 255) : '0'}        
+          top: 50%
+          left: 50%
+          width: 100%
+        tap_action:
+          action: none
+        hold_action:
+          action: none
+##########################################greta##################################################          
+  - type: conditional
+    conditions:
+      - entity: light.luce_camera_greta
+        state: "on"
+    elements:
+      - type: image
+        image: /local/foto/greta hd.png
+        style:
+          filter: >-
+            ${ "hue-rotate(" +
+            (states['light.luce_camera_greta'].attributes.hs_color  ?
+            states['light.luce_camera_greta'].attributes.hs_color[0] : 45) + "deg)
+            hue-rotate(-45deg) saturate(1.5)"}
+          mix-blend-mode: lighten
+          opacity: >-
+            ${states['light.luce_camera_greta'].state === 'on' ?
+            (states['light.luce_camera_greta'].attributes.brightness / 255) : '0'}        
+          top: 50%
+          left: 50%
+          width: 100%
+        tap_action:
+          action: none
+        hold_action:
+          action: none          
+##########################################bianca ################################################ 
+  - type: conditional
+    conditions:
+      - entity: light.luce_camera_bianca
+        state: "on"
+    elements:
+      - type: image
+        image: /local/foto/bianca hd.png
+        style:
+          filter: >-
+            ${ "hue-rotate(" +
+            (states['light.luce_camera_bianca'].attributes.hs_color  ?
+            states['light.luce_camera_bianca'].attributes.hs_color[0] : 45) + "deg)
+            hue-rotate(-45deg) saturate(1.5)"}
+          mix-blend-mode: lighten
+          opacity: >-
+            ${states['light.luce_camera_bianca'].state === 'on' ?
+            (states['light.luce_camera_bianca'].attributes.brightness / 255) : '0'}        
+          top: 50%
+          left: 50%
+          width: 100%
+        tap_action:
+          action: none
+        hold_action:
+          action: none   
+##########################################bagno################################################## 
+  - type: conditional
+    conditions:
+      - entity: light.luce_bagno
+        state: "on"
+    elements:
+      - type: image
+        image: /local/foto/bagno hd.png
+        style:
+          filter: >-
+            ${ "hue-rotate(" +
+            (states['light.luce_bagno'].attributes.hs_color  ?
+            states['light.luce_bagno'].attributes.hs_color[0] : 45) + "deg)
+            hue-rotate(-45deg) saturate(1.5)"}
+          mix-blend-mode: lighten
+          opacity: >-
+            ${states['light.luce_bagno'].state === 'on' ?
+            (states['light.luce_bagno'].attributes.brightness / 255) : '0'}        
+          top: 50%
+          left: 50%
+          width: 100%
+        tap_action:
+          action: none
+        hold_action:
+          action: none 
+##########################################camera################################################# 
+  - type: conditional
+    conditions:
+      - entity: light.luce_camera
+        state: "on"
+    elements:
+      - type: image
+        image: /local/foto/camera hd.png
+        style:
+          filter: >-
+            ${ "hue-rotate(" +
+            (states['light.luce_camera'].attributes.hs_color  ?
+            states['light.luce_camera'].attributes.hs_color[0] : 45) + "deg)
+            hue-rotate(-45deg) saturate(1.5)"}
+          mix-blend-mode: lighten
+          opacity: >-
+            ${states['light.luce_camera'].state === 'on' ?
+            (states['light.luce_camera'].attributes.brightness / 255) : '0'}        
+          top: 50%
+          left: 50%
+          width: 100%
+        tap_action:
+          action: none
+        hold_action:
+          action: none 
+##########################################corridoio##############################################
+  - type: conditional
+    conditions:
+      - entity: light.luce_corridoio
+        state: "on"
+    elements:
+      - type: image
+        image: /local/foto/corridoiohd.png
+        style:
+          filter: >-
+            ${ "hue-rotate(" +
+            (states['light.scala_interna'].attributes.hs_color  ?
+            states['light.scala_interna'].attributes.hs_color[0] : 45) + "deg)
+            hue-rotate(-45deg) saturate(1.5)"}
+          mix-blend-mode: lighten
+          opacity: >-
+            ${states['light.scala_interna'].state === 'on' ?
+            (states['light.scala_interna'].attributes.brightness / 255) : '0'}        
+          top: 50%
+          left: 50%
+          width: 100%
+        tap_action:
+          action: none
+        hold_action:
+          action: none 
+##########################################led armadio scale###############################################
+  - type: conditional
+    conditions:
+      - entity: light.hue_lightstrip_plus_1
+        state: "on"
+    elements:
+      - type: image
+        image: /local/foto/corridoio_led.png
+        style:
+          filter: >-
+            ${ "hue-rotate(" +
+            (states['light.hue_lightstrip_plus_1'].attributes.hs_color  ?
+            states['light.hue_lightstrip_plus_1'].attributes.hs_color[0] : 45) + "deg)
+            hue-rotate(-45deg) saturate(1.5)"}
+          mix-blend-mode: lighten
+          opacity: >-
+            ${states['light.hue_lightstrip_plus_1'].state === 'on' ?
+            (states['light.hue_lightstrip_plus_1'].attributes.brightness / 255) : '0'}        
+          top: 50%
+          left: 50%
+          width: 100%
+        tap_action:
+          action: none
+        hold_action:
+          action: none 
+##########################################camunetto###############################################
+  - type: conditional
+    conditions:
+      - entity: light.hue_led_caminetto
+        state: "on"
+    elements:
+      - type: image
+        image: /local/foto/caminetto.png
+        style:
+          filter: >-
+            ${ "hue-rotate(" +
+            (states['light.hue_led_caminetto'].attributes.hs_color  ?
+            states['light.hue_led_caminetto'].attributes.hs_color[0] : 45) + "deg)
+            hue-rotate(-45deg) saturate(1.5)"}
+          mix-blend-mode: lighten
+          opacity: >-
+            ${states['light.hue_led_caminetto'].state === 'on' ?
+            (states['light.hue_led_caminetto'].attributes.brightness / 255) : '0'}        
+          top: 50%
+          left: 50%
+          width: 100%
+        tap_action:
+          action: none
+        hold_action:
+          action: none           
+##########################################salotto########################################### 
+  - type: conditional
+    conditions:
+      - entity: light.luce_07
+        state: "on"
+    elements:
+      - type: image
+        image: /local/foto/salotto1hd.png
+        style:
+          filter: >-
+            ${ "hue-rotate(" +
+            (states['light.luce_07'].attributes.hs_color  ?
+            states['light.luce_07'].attributes.hs_color[0] : 45) + "deg)
+            hue-rotate(-45deg) saturate(1.5)"}
+          mix-blend-mode: lighten
+          opacity: >-
+            ${states['light.luce_07'].state === 'on' ?
+            (states['light.luce_07'].attributes.brightness / 255) : '0'}        
+          top: 50%
+          left: 50%
+          width: 100%
+        tap_action:
+          action: none
+        hold_action:
+          action: none  
+##########################################ingresso########################################### 
+  - type: conditional
+    conditions:
+      - entity: light.hue_ambiance_lamp_1
+        state: "on"
+    elements:
+      - type: image
+        image: /local/foto/scalehd.png
+        style:
+          filter: >-
+            ${ "hue-rotate(" +
+            (states['light.hue_ambiance_lamp_1'].attributes.hs_color  ?
+            states['light.hue_ambiance_lamp_1'].attributes.hs_color[0] : 45) + "deg)
+            hue-rotate(-45deg) saturate(1.5)"}
+          mix-blend-mode: lighten
+          opacity: >-
+            ${states['light.hue_ambiance_lamp_1'].state === 'on' ?
+            (states['light.hue_ambiance_lamp_1'].attributes.brightness / 255) : '0'}        
+          top: 50%
+          left: 50%
+          width: 100%
+        tap_action:
+          action: none
+        hold_action:
+          action: none  
+##########################################terrazza ################################################
+  - type: conditional
+    conditions:
+      - entity: light.hue_white_lamp_1
+        state: "on"
+    elements:
+      - type: image
+        image: /local/foto/terrazza hd.png
+        style:
+          filter: >-
+            ${ "hue-rotate(" +
+            (states['light.hue_white_lamp_1'].attributes.hs_color  ?
+            states['light.hue_white_lamp_1'].attributes.hs_color[0] : 45) + "deg)
+            hue-rotate(-45deg) saturate(1.5)"}
+          mix-blend-mode: lighten
+          opacity: >-
+            ${states['light.hue_white_lamp_1'].state === 'on' ?
+            (states['light.hue_white_lamp_1'].attributes.brightness / 255) : '0'}        
+          top: 50%
+          left: 50%
+          width: 100%
+        tap_action:
+          action: none
+        hold_action:
+          action: none
+          
+#################################### icone ##########################################################################################################       
+
+ #####################cucina#################
+  - type: custom:button-card
+    entity: light.luce_cucina       
+    style:
+      top: 39%
+      left: 57%
+      width: 10%
+    template:
+      - icon_int
+      
+#####################bianca##################
+  - type: custom:button-card
+    entity: light.luce_camera_bianca
+    icon: 'mdi:lightbulb'      
+    style:
+      top: 36%
+      left: 41%
+      width: 10%
+    template:
+      - icon_int
+#####################salotto2################
+  - type: custom:button-card
+    entity: light.luce_06
+    icon: 'mdi:lightbulb'      
+    style:
+      top: 50%
+      left: 56%
+      width: 10%
+    template:
+      - icon_int 
+#####################greta###################
+  - type: custom:button-card
+    entity: light.luce_camera_greta
+    icon: 'mdi:lightbulb'      
+    style:
+      top: 36%
+      left: 28%
+      width: 10%
+    template:
+      - icon_int
+#####################camera##################
+  - type: custom:button-card
+    entity: light.luce_camera
+    icon: 'mdi:lightbulb'      
+    style:
+      top: 69%
+      left: 33%
+      width: 10%
+    template:
+      - icon_int
+#####################bagno###################
+  - type: custom:button-card
+    entity: light.luce_bagno
+    icon: 'mdi:lightbulb'      
+    style:
+      top: 51%
+      left: 25%
+      width: 10%
+    template:
+      - icon_int
+#####################pateo###################
+  - type: custom:button-card
+    entity: light.hue_pateo
+    icon: 'mdi:floor-lamp'      
+    style:
+      top: 77%
+      left: 76%
+      width: 10%
+    template:
+      - icon_int 
+#####################ingresso################
+  - type: custom:button-card
+    entity: light.hue_ambiance_lamp_1
+    icon: 'mdi:lightbulb'      
+    style:
+      top: 59%
+      left: 66%
+      width: 10%
+    template:
+      - icon_int         
+#####################terrazza###############
+  - type: custom:button-card
+    entity: light.hue_white_lamp_1
+    icon: 'mdi:coach-lamp'      
+    style:
+      top: 84%
+      left: 32%
+      width: 10%
+    template:
+      - icon_int 
+#####################salotto#################
+  - type: custom:button-card
+    entity: light.luce_07
+    icon: 'mdi:lightbulb'      
+    style:
+      top: 61%
+      left: 56%
+      width: 10%
+    template:
+      - icon_int
+#####################caminetto###############        
+  - type: custom:button-card
+    entity: light.hue_led_caminetto
+    icon: 'mdi:led-strip-variant'      
+    style:
+      top: 72%
+      left: 47%
+      width: 20%
+    template:
+      - icon_int    
+#####################led scale###############     
+  - type: custom:button-card
+    entity: light.scala_interna
+    icon: 'mdi:led-strip-variant'      
+    style:
+      top: 55%
+      left: 39%
+      width: 10%
+    template:
+      - icon_int                      
+      
+
+#####################persone############### 
+  - type: state-badge
+    entity: person.marco_zanellato
+    style:
+      left: 5%
+      top: 5%
+    title: Marco
+  - type: state-badge
+    entity: person.marianna
+    style:
+      left: 10%
+      top: 5%
+  - type: state-badge
+    entity: person.grts
+    style:
+      left: 15%
+      top: 5%
+  - type: state-badge
+    entity: person.bianca
+    style:
+      left: 20%
+      top: 5%   
