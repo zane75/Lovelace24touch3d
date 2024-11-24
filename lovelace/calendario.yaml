@@ -3,7 +3,7 @@ elements:
   - type: custom:atomic-calendar-revive
     name: Calendario
     entities:
-      - entity: calendar.breewzane_gmail_com
+      - entity: #################
     fullDayEventText: All day
     untilText: Until
     showColors: true
