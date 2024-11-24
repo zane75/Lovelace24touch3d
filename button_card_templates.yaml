@@ -1,0 +1,38 @@
+  # !toggle word-wrap
+  
+  #################################################
+  #                                               #
+  #                     ICONS                     #
+  #                                               #
+  #################################################
+
+
+
+  icon_int:
+    color: auto
+    show_state: false
+    show_name: false
+    show_label: true     
+    styles:
+      card:
+        - border-radius: 40px
+        - width: 40px         
+        - height: 40px
+        - margin: 5px 5px 5px 5px
+        - background-color: rgba(0, 0, 0, 0.5)
+      icon:
+        - height: 20px
+        - width: 20px
+    state:
+      - value: 'on'
+        styles:
+          card:
+            - '--paper-card-background-color': 'rgba(40, 40, 40)'
+            - box-shadow: 5px 5px 60px 5px var(--button-card-light-color)
+      - value: 'off'
+        styles:
+          card:
+            - color: 'rgba(123, 123, 123, 4.7)'
+            - background-color: 'rgba(0, 0, 0, 0.1)'      
+
+
